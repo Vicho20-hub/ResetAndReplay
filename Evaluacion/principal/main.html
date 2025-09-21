@@ -1,18 +1,188 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RetroStore • Artículos Retro y Videojuegos</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="mainStyles.css" />
+
+  <!-- Meta -->
+  <meta name="description" content="Tienda retro de videojuegos y coleccionables — inspiración SNES, juegos y consolas clásicas.">
 </head>
-
 <body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="img/logo2.png" alt="RetroStore logo" class="logo" />
+        <h1>RetroStore</h1>
+      </div>
 
-    <h1> Hola Mundo!</h1>
-    
-    <h1>Main Page</h1>
-    <p>Welcome to the main page!</p>
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="#" class="active">Inicio</a>
+        <a href="#productos">Productos</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
 
+      <div class="header-actions">
+        <input id="search" class="search" type="search" placeholder="Buscar juego, consola..." aria-label="Buscar productos">
+        <button id="cart-btn" class="btn small">Carrito (0)</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-text">
+          <h2>Vuelve a jugar. Redescubre clásicos.</h2>
+          <p>Encuentra consolas, cartuchos, accesorios y merch con la paleta SNES y todo el feeling retro.</p>
+          <a href="#productos" class="btn large">Ver Productos</a>
+        </div>
+        <div class="hero-art">
+          <img src="hero-console.png" alt="Consuela retro" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES / CATEGORIES -->
+    <section id="categorias" class="categories container">
+      <h3 class="section-title">Categorías destacadas</h3>
+      <div class="cats-grid">
+        <div class="cat-card">
+          <div class="cat-icon">🎮</div>
+          <h4>Consolas</h4>
+          <p>SNES, NES, PS1, N64 y más.</p>
+        </div>
+        <div class="cat-card">
+          <div class="cat-icon">📀</div>
+          <h4>Juegos</h4>
+          <p>Cartuchos y discos originales.</p>
+        </div>
+        <div class="cat-card">
+          <div class="cat-icon">🧢</div>
+          <h4>Merch</h4>
+          <p>Poleras, posters y coleccionables.</p>
+        </div>
+        <div class="cat-card">
+          <div class="cat-icon">🔧</div>
+          <h4>Accesorios</h4>
+          <p>Controles, adaptadores y repuestos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="productos" class="products container">
+      <h3 class="section-title">Productos destacados</h3>
+
+      <div class="controls">
+        <label for="sort">Ordenar por:</label>
+        <select id="sort" aria-label="Ordenar productos">
+          <option value="featured">Destacados</option>
+          <option value="price-asc">Precio: bajo → alto</option>
+          <option value="price-desc">Precio: alto → bajo</option>
+        </select>
+      </div>
+
+      <div id="products-grid" class="products-grid">
+        <!-- Cada tarjeta usa data- atributos para poblar el modal -->
+        <article class="product-card" data-id="1" data-title="Super Mario World (SNES)" data-price="49.99" data-desc="Cartucho original en buen estado. Incluye caja." data-image="prod-mario.png">
+          <img src="img/snes.jpg" alt="Super Mario World">
+          <div class="card-body">
+            <h4 class="product-title">Super Mario World (SNES)</h4>
+            <p class="price">$49.99</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="2" data-title="Controller SNES - Repro" data-price="19.99" data-desc="Control réplica con cable largo." data-image="prod-ctrl.png">
+          <img src="img/controlSNES.jpg" alt="Controller SNES">
+          <div class="card-body">
+            <h4 class="product-title">Controller SNES - Repro</h4>
+            <p class="price">$19.99</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="3" data-title="PlayStation 1 - Slim" data-price="79.00" data-desc="Consola PS1 edición Slim. Probada y funcional." data-image="prod-ps1.png">
+          <img src="img/ps1.jpg" alt="PS1 Slim">
+          <div class="card-body">
+            <h4 class="product-title">PlayStation 1 - Slim</h4>
+            <p class="price">$79.00</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="4" data-title="Polera Retro • SNES Palette" data-price="25.00" data-desc="Polera de algodón, diseño SNES pixel art." data-image="prod-shirt.png">
+          <img src="img/poleraSNES.jpg" alt="Polera retro">
+          <div class="card-body">
+            <h4 class="product-title">Polera Retro • SNES Palette</h4>
+            <p class="price">$25.00</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- CONTACT / FOOTER -->
+    <section id="contacto" class="contact container">
+      <h3 class="section-title">Contacto</h3>
+      <p>¿Tienes una pieza para vender o una consulta? Escríbenos a <a href="mailto:info@retrostoresimulado.com">info@retrostoresimulado.com</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <small>© RetroStore 1995–2025</small>
+      <div class="footer-links">
+        <a href="#">Términos</a>
+        <a href="#">Política de privacidad</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PRODUCT MODAL -->
+  <div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content" role="document">
+      <button id="modal-close" class="modal-close" aria-label="Cerrar">✕</button>
+      <div class="modal-grid">
+        <div class="modal-image">
+          <img id="modal-img" src="" alt="" />
+        </div>
+        <div class="modal-info">
+          <h4 id="modal-title"></h4>
+          <p id="modal-desc"></p>
+          <p class="modal-price" id="modal-price"></p>
+          <div class="modal-actions">
+            <button id="modal-add" class="btn">Añadir al carrito</button>
+            <button id="modal-buy" class="btn outline">Comprar ahora</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop" tabindex="-1" data-close></div>
+  </div>
+
+  <!-- JS -->
+  <script src="mainScript.js"></script>
 </body>
 </html>
