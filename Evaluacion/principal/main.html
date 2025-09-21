@@ -93,11 +93,11 @@
 
       <div id="products-grid" class="products-grid">
         <!-- Cada tarjeta usa data- atributos para poblar el modal -->
-        <article class="product-card" data-id="1" data-title="Super Mario World (SNES)" data-price="49.99" data-desc="Cartucho original en buen estado. Incluye caja." data-image="prod-mario.png">
+        <article class="product-card" data-id="1" data-title="Super Mario World (SNES)" data-price="100000" data-desc="Cartucho original en buen estado. Incluye caja." data-image="prod-mario.png">
           <img src="img/snes.jpg" alt="Super Mario World">
           <div class="card-body">
             <h4 class="product-title">Super Mario World (SNES)</h4>
-            <p class="price">$49.99</p>
+            <p class="price">$100.000</p>
             <div class="card-actions">
               <button class="btn view-btn">Ver</button>
               <button class="btn outline add-cart">Añadir</button>
@@ -105,11 +105,11 @@
           </div>
         </article>
 
-        <article class="product-card" data-id="2" data-title="Controller SNES - Repro" data-price="19.99" data-desc="Control réplica con cable largo." data-image="prod-ctrl.png">
+        <article class="product-card" data-id="2" data-title="Controller SNES - Repro" data-price="35000" data-desc="Control réplica con cable largo." data-image="prod-ctrl.png">
           <img src="img/controlSNES.jpg" alt="Controller SNES">
           <div class="card-body">
             <h4 class="product-title">Controller SNES - Repro</h4>
-            <p class="price">$19.99</p>
+            <p class="price">$35.000</p>
             <div class="card-actions">
               <button class="btn view-btn">Ver</button>
               <button class="btn outline add-cart">Añadir</button>
@@ -117,11 +117,11 @@
           </div>
         </article>
 
-        <article class="product-card" data-id="3" data-title="PlayStation 1 - Slim" data-price="79.00" data-desc="Consola PS1 edición Slim. Probada y funcional." data-image="prod-ps1.png">
+        <article class="product-card" data-id="3" data-title="PlayStation 1 - Slim" data-price="95000" data-desc="Consola PS1 edición Slim. Probada y funcional." data-image="prod-ps1.png">
           <img src="img/ps1.jpg" alt="PS1 Slim">
           <div class="card-body">
             <h4 class="product-title">PlayStation 1 - Slim</h4>
-            <p class="price">$79.00</p>
+            <p class="price">$95.000</p>
             <div class="card-actions">
               <button class="btn view-btn">Ver</button>
               <button class="btn outline add-cart">Añadir</button>
@@ -129,11 +129,11 @@
           </div>
         </article>
 
-        <article class="product-card" data-id="4" data-title="Polera Retro • SNES Palette" data-price="25.00" data-desc="Polera de algodón, diseño SNES pixel art." data-image="prod-shirt.png">
+        <article class="product-card" data-id="4" data-title="Polera Retro • SNES Palette" data-price="25000" data-desc="Polera de algodón, diseño SNES pixel art." data-image="prod-shirt.png">
           <img src="img/poleraSNES.jpg" alt="Polera retro">
           <div class="card-body">
             <h4 class="product-title">Polera Retro • SNES Palette</h4>
-            <p class="price">$25.00</p>
+            <p class="price">$25.000</p>
             <div class="card-actions">
               <button class="btn view-btn">Ver</button>
               <button class="btn outline add-cart">Añadir</button>
@@ -146,7 +146,7 @@
     <!-- CONTACT / FOOTER -->
     <section id="contacto" class="contact container">
       <h3 class="section-title">Contacto</h3>
-      <p>¿Tienes una pieza para vender o una consulta? Escríbenos a <a href="mailto:info@retrostoresimulado.com">info@retrostoresimulado.com</a></p>
+      <p>¿Tienes una pieza para vender o una consulta? Escríbenos a <a href="mailto:info@resetandreplay.com">info@resetandreplay.com</a></p>
     </section>
   </main>
 
@@ -181,6 +181,23 @@
     </div>
     <div class="modal-backdrop" tabindex="-1" data-close></div>
   </div>
+
+
+<!-- CART MODAL -->
+<div id="cart-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content" role="document">
+        <button id="cart-close" class="modal-close" aria-label="Cerrar">✕</button>
+        <h4>Carrito de compras</h4>
+        <div id="cart-items" class="cart-items">
+            <!-- Items agregados aparecerán aquí -->
+        </div>
+        <p id="cart-total"><strong>Total: $0.00</strong></p>
+        <button id="checkout-btn" class="btn large">Proceder al pago</button>
+      </div>
+    <div class="modal-backdrop" tabindex="-1" data-close></div>
+</div>
+
+
 
   <!-- JS -->
   <script src="mainScript.js"></script>

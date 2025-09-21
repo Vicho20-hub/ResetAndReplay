@@ -61,17 +61,123 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
   });
 
-  // Modal actions
-  document.getElementById('modal-add').addEventListener('click', () => {
-    cartCount++;
-    cartBtn.textContent = `Carrito (${cartCount})`;
-    closeModal();
+
+
+// Array global para guardar items
+let cartItems = [];
+
+// Función para añadir producto al carrito
+function addToCart(card) {
+  const item = {
+    id: card.dataset.id,
+    title: card.dataset.title,
+    price: parseFloat(card.dataset.price)
+  };
+  cartItems.push(item);
+  updateCartUI();
+}
+
+// Actualizar contador y total del carrito
+function updateCartUI() {
+  cartBtn.textContent = `Carrito (${cartItems.length})`;
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  cartItemsContainer.innerHTML = '';
+
+  let total = 0;
+  cartItems.forEach(item => {
+    total += item.price;
+    const div = document.createElement('div');
+    div.classList.add('cart-item');
+    div.innerHTML = `<span>${item.title}</span><span>$${item.price.toFixed(2)}</span>`;
+    cartItemsContainer.appendChild(div);
   });
 
-  document.getElementById('modal-buy').addEventListener('click', () => {
-    alert('Simulación de compra: ir a checkout (a implementar).');
-    closeModal();
+  cartTotal.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
+}
+
+// Evento click en botón de carrito
+cartBtn.addEventListener('click', () => {
+  const cartModal = document.getElementById('cart-modal');
+  cartModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+});
+
+// Cerrar modal carrito
+const cartModal = document.getElementById('cart-modal');
+const cartClose = document.getElementById('cart-close');
+cartClose.addEventListener('click', () => {
+  cartModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+});
+cartModal.querySelector('.modal-backdrop').addEventListener('click', () => {
+  cartModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+});
+
+// Cambiar función de añadir al carrito existente
+productsGrid.addEventListener('click', (e) => {
+  const card = e.target.closest('.product-card');
+  if (!card) return;
+
+  if (e.target.matches('.view-btn')) {
+    openModalFromCard(card);
+  } else if (e.target.matches('.add-cart') || e.target.matches('.btn.outline.add-cart')) {
+    addToCart(card); // ahora usamos la nueva función
+  }
+});
+
+// Modal: comprar desde modal también agrega al carrito
+document.getElementById('modal-add').addEventListener('click', () => {
+  const productCard = Array.from(document.querySelectorAll('.product-card'))
+    .find(c => c.dataset.title === modalTitle.textContent);
+  if (productCard) addToCart(productCard);
+  closeModal();
+});
+
+// Nueva función para renderizar carrito con botón eliminar
+function updateCartUI() {
+  cartBtn.textContent = `Carrito (${cartItems.length})`;
+  const cartItemsContainer = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  cartItemsContainer.innerHTML = '';
+
+  let total = 0;
+  cartItems.forEach((item, index) => {
+    total += item.price;
+
+    const div = document.createElement('div');
+    div.classList.add('cart-item');
+    div.innerHTML = `
+      <span>${item.title}</span>
+      <span>
+        $${item.price.toFixed(2)}
+        <button class="remove-btn" data-index="${index}">✕</button>
+      </span>
+    `;
+    cartItemsContainer.appendChild(div);
   });
+
+  cartTotal.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
+
+  // Agregar funcionalidad a botones eliminar
+  cartItemsContainer.querySelectorAll('.remove-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const idx = parseInt(e.target.dataset.index);
+      cartItems.splice(idx, 1);
+      updateCartUI();
+    });
+  });
+}
+
+// Checkout
+const checkoutBtn = document.getElementById('checkout-btn');
+checkoutBtn.addEventListener('click', () => {
+  window.location.href = "checkout.html"; // redirige a otra página (a implementar)
+});
+
+
+
 
   // Search filter (simple)
   searchInput.addEventListener('input', (e) => {
