@@ -38,3 +38,25 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
 
 });
 
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const birthdate = document.getElementById('birthdate').value;
+    if (!birthdate) {
+        alert('Por favor ingresa tu fecha de nacimiento.');
+        return;
+    }
+    const today = new Date();
+    const birth = new Date(birthdate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    if (age < 18) {
+        alert('Debes ser mayor de 18 años para registrarte.');
+        return;
+    }
+    // Aquí puedes continuar con el registro (guardar datos, redirigir, etc.)
+    alert('Registro exitoso. ¡Bienvenido!');
+    // window.location.href = '../principal/main.html'; // Si quieres redirigir después del registro
+});
