@@ -31,8 +31,10 @@ document.getElementById('loginText').addEventListener('click', function() {
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault(); // Evita el envío normal del formulario
-    window.location.href = 'C:/Users/MOMO/OneDrive/Escritorio/Estudios/FullStack II/Evaluacion/principal/main.html';
+    window.location.href = '../principal/main.html';
+    // Esto funciona si lScript.js está en la carpeta Login y principal está al mismo nivel.
     // Esto último es para redirigir a la página principal. Se debe cambiar la ruta según sea necesario.
     // Si llegase a dar error por no encontrar el archivo, asegurarse de estar usando "/" en lugar de "\" para separar las carpetas.
 
 });
+
