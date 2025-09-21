@@ -31,7 +31,8 @@ document.getElementById('loginText').addEventListener('click', function() {
 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
     e.preventDefault(); // Evita el envío normal del formulario
-    window.location.href = 'C:/Users/MOMO/OneDrive/Escritorio/Estudios/FullStack II/Evaluacion/main/main.html';
+    window.location.href = 'C:/Users/MOMO/OneDrive/Escritorio/Estudios/FullStack II/Evaluacion/principal/main.html';
     // Esto último es para redirigir a la página principal. Se debe cambiar la ruta según sea necesario.
     // Si llegase a dar error por no encontrar el archivo, asegurarse de estar usando "/" en lugar de "\" para separar las carpetas.
+
 });
