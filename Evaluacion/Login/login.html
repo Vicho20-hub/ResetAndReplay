@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to Reset&Replay</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-Yo12wWUeC8X1h7YlNv0oBv6f9/V5WtM2PAE9mRiFQwF6f3QJnI6HscfrF3YhQ7PwChDL8AJ+ScGdgLZcQuZmCw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="loginStyle.css">
+
+    </head>
+
+    <body>
+
+    <div class="container">
+        <div class="flip-card" id="flipCard">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <form id="loginForm">
+                        <h1 class = "retro-title">Inicio sesion</h1>
+                        <input type="text" placeholder="Email" required>
+                        <input type="password" placeholder="Contraseña" required>
+                        <div style="position: relative;">
+                            <input type="checkbox" id="rememberPassword">
+                            <label for="rememberPassword">Recordar contraseña</label>
+                            <div class="password-toggle" onclick="togglePasswordVisibility()">
+                                <i class="far fa-eye" id="togglePassword"></i>
+                            </div>
+                        </div>
+                        <button type="submit">Log In</button>
+                    </form>
+                    <span class="toggle-text" id="registerText">Registrarse</span>
+                </div>
+                <div class="flip-card-back">
+                    <form id="registerForm">
+                        <h1 class = "retro-title">Registrarse</h1>
+                        <input type="text" placeholder="Nombre" required>
+                        <input type="text" placeholder="Nombre de usuario" required>
+                        <input type="email" placeholder="Email" required>
+                        <input type="date" id="birthdate" required> <!-- Nuevo campo -->
+                        <input type="password" placeholder="Contraseña" required>
+                        <input type="passwordConf" placeholder="Confirmar contraseña" required>
+                        <button type="submit">Registrar</button>
+                    </form>
+                    <span class="toggle-text" id="loginText">Volver al login</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="loginScript.js"></script>
+    </body>
+
+</html>
