@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RetroStore • Productos</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <!-- Hoja de estilos principal (misma que el main) -->
+  <link rel="stylesheet" href="mainStyles.css" />
+</head>
+<body>
+  <!-- HEADER (idéntico al principal) -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <a href="main.html" style="display:flex; align-items:center; gap:12px; text-decoration:none;">
+          <img src="img/logo2.png" alt="RetroStore logo" class="logo" />
+          <h1>RetroStore</h1>
+        </a>
+      </div>
+
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="main.html">Inicio</a>
+        <a href="productos.html" class="active">Productos</a>
+        <a href="index.html#categorias">Categorías</a>
+        <a href="terminos.html">Términos</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="../../Evaluacion/Contacto/contacto.html">Contacto</a>
+      </nav>
+
+      <div class="header-actions">
+        <input id="search" class="search" type="search" placeholder="Buscar juego, consola..." aria-label="Buscar productos">
+        <button id="cart-btn" class="btn small">Carrito (0)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN: listado de productos -->
+  <main class="container" style="padding:28px 20px;">
+    <section class="products">
+      <h2 class="section-title">Catálogo Retro — Productos seleccionados</h2>
+
+      <div class="controls" style="margin-bottom:14px;">
+        <label for="sort">Ordenar por:</label>
+        <select id="sort" aria-label="Ordenar productos">
+          <option value="featured">Destacados</option>
+          <option value="price-asc">Precio: bajo → alto</option>
+          <option value="price-desc">Precio: alto → bajo</option>
+        </select>
+      </div>
+
+      <div id="products-grid" class="products-grid">
+        <!-- 8 productos de ejemplo -->
+        <article class="product-card" data-id="1" data-title="Super Mario World (SNES)" data-price="49.99" data-desc="Cartucho original, en buen estado. Caja incluida." data-image="prod-mario.png">
+          <img src="img/snes.jpg" alt="Super Mario World">
+          <div class="card-body">
+            <h4 class="product-title">Super Mario World (SNES)</h4>
+            <p class="price">$49.99</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="2" data-title="Controller SNES - Repro" data-price="19.99" data-desc="Control réplica con cable largo." data-image="prod-ctrl.png">
+          <img src="img/controlSNES.jpg" alt="Controller SNES">
+          <div class="card-body">
+            <h4 class="product-title">Controller SNES - Repro</h4>
+            <p class="price">$19.99</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="3" data-title="PlayStation 1 - Slim" data-price="79.00" data-desc="Consola PS1 edición Slim. Probada y funcional." data-image="prod-ps1.png">
+          <img src="img/ps1.jpg" alt="PS1 Slim">
+          <div class="card-body">
+            <h4 class="product-title">PlayStation 1 - Slim</h4>
+            <p class="price">$79.00</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="4" data-title="Polera Retro • SNES Palette" data-price="25.00" data-desc="Polera de algodón, diseño SNES pixel art." data-image="prod-shirt.png">
+          <img src="img/poleraSNES.jpg" alt="Polera retro">
+          <div class="card-body">
+            <h4 class="product-title">Polera Retro • SNES Palette</h4>
+            <p class="price">$25.00</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="5" data-title="The Legend of Zelda (N64)" data-price="59.00" data-desc="Cartucho N64, versión completa." data-image="prod-zelda.png">
+          <img src="img/tlozOcarina.jpg" alt="Zelda N64">
+          <div class="card-body">
+            <h4 class="product-title">The Legend of Zelda (N64)</h4>
+            <p class="price">$59.00</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="6" data-title="Game Boy Color • Bundle" data-price="39.00" data-desc="Game Boy Color + cargador + juego." data-image="prod-gbc.png">
+          <img src="img/gbColor.jpg" alt="Game Boy Color">
+          <div class="card-body">
+            <h4 class="product-title">Game Boy Color • Bundle</h4>
+            <p class="price">$39.00</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="7" data-title="Mega Drive — Headset" data-price="14.50" data-desc="Auriculares retro compatibles." data-image="prod-md.png">
+          <img src="img/segaVR.jpg" alt="Mega Drive headset">
+          <div class="card-body">
+            <h4 class="product-title">Mega Drive — SEGA VR</h4>
+            <p class="price">$14.50</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="product-card" data-id="8" data-title="Cartucho Pokémon Snap (N64)" data-price="34.99" data-desc="Cartucho original, probado." data-image="prod-snap.png">
+          <img src="img/pokemonSnap.jpg" alt="Pokemon Snap">
+          <div class="card-body">
+            <h4 class="product-title">Pokémon Snap (N64)</h4>
+            <p class="price">$34.99</p>
+            <div class="card-actions">
+              <button class="btn view-btn">Ver</button>
+              <button class="btn outline add-cart">Añadir</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- PRODUCT MODAL (idéntico al de index para compatibilidad con script.js) -->
+  <div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content" role="document">
+      <button id="modal-close" class="modal-close" aria-label="Cerrar">✕</button>
+      <div class="modal-grid">
+        <div class="modal-image">
+          <img id="modal-img" src="" alt="" />
+        </div>
+        <div class="modal-info">
+          <h4 id="modal-title"></h4>
+          <p id="modal-desc"></p>
+          <p class="modal-price" id="modal-price"></p>
+          <div class="modal-actions">
+            <button id="modal-add" class="btn">Añadir al carrito</button>
+            <button id="modal-buy" class="btn outline">Comprar ahora</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-backdrop" tabindex="-1" data-close></div>
+  </div>
+
+  <!-- CART MODAL (igual que en index) -->
+  <div id="cart-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content" role="document">
+      <button id="cart-close" class="modal-close" aria-label="Cerrar">✕</button>
+      <h4>Carrito de compras</h4>
+      <div id="cart-items" class="cart-items"></div>
+      <p id="cart-total"><strong>Total: $0.00</strong></p>
+      <button id="checkout-btn" class="btn large">Proceder al pago</button>
+    </div>
+    <div class="modal-backdrop" tabindex="-1" data-close></div>
+  </div>
+
+  <!-- JS: usa tu script.js principal (que contiene la lógica del carrito/modal) -->
+  <!-- Si usas el script independiente que te proporcioné anteriormente, enlaza ese -->
+  <script src="mainScript.js"></script>
+</body>
+</html>
