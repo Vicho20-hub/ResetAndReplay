@@ -1,0 +1,113 @@
+/* Paleta inspirada en SNES */
+:root {
+  --bg: #ECE8F2;
+  --text: #ffffff;
+  --accent-1: #e63946; /* rojo */
+  --accent-2: #457b9d; /* azul SNES */
+  --accent-3: #f1fa8c; /* amarillo pastel */
+}
+
+/* General */
+body {
+  background-color: var(--background);
+  color: var(--text);
+  font-family: 'Press Start 2P', cursive;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+header {
+  background: var(--accent-2);
+  padding: 20px;
+  text-align: center;
+}
+
+.logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 24px;
+}
+
+.nav a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.nav a.active {
+  color: var(--accent-3);
+}
+
+/* Sección contacto */
+.section {
+  padding: 40px 20px;
+  max-width: 700px;
+  margin: auto;
+}
+
+h2 {
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  margin-bottom: 20px;
+  color: var(--accent-1);
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-form label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  color: var(--accent-1);
+}
+
+.contact-form input,
+.contact-form textarea {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  padding: 10px;
+  border: 2px solid var(--accent-2);
+  border-radius: 8px;
+  background-color: var(--background);
+  color: var(--text);
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent-1);
+}
+
+.btn {
+  padding: 10px;
+  background-color: var(--accent-2);
+  color: var(--text);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.btn:hover {
+  background-color: var(--accent-1);
+}
+
+.form-response {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--accent-3);
+}
+
+/* Footer */
+.footer {
+  background: var(--accent-2);
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}

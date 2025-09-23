@@ -1,4 +1,3 @@
-// Data-driven modal + search + sort + carrito simple
 document.addEventListener('DOMContentLoaded', () => {
   const modal = document.getElementById('product-modal');
   const modalTitle = document.getElementById('modal-title');
@@ -12,9 +11,131 @@ document.addEventListener('DOMContentLoaded', () => {
   const sortSelect = document.getElementById('sort');
   const cartBtn = document.getElementById('cart-btn');
 
-  let cartCount = 0;
+  // Carrito como lista de objetos con qty
+  let cartItems = []; // { id, title, price, qty }
 
-  // Open modal with data from card
+  // ---- Helpers ----
+  function findCartIndexById(id){
+    return cartItems.findIndex(it => it.id === id);
+  }
+
+  function formatPrice(v){
+    return `$${parseFloat(v).toFixed(2)}`;
+  }
+
+  // ---- Añadir al carrito (agrega qty si ya existe) ----
+  function addToCart(card, qty = 1) {
+    const id = card.dataset.id;
+    const title = card.dataset.title;
+    const price = parseFloat(card.dataset.price);
+
+    const idx = findCartIndexById(id);
+    if (idx >= 0) {
+      cartItems[idx].qty += qty;
+    } else {
+      cartItems.push({ id, title, price, qty });
+    }
+
+    // UI updates
+    updateCartUI();
+    animateCartBtn();
+    showAddToast(`${title} agregado${qty > 1 ? ` x${qty}` : ''}`);
+  }
+
+  // ---- Animar botón del carrito ----
+  function animateCartBtn(){
+    cartBtn.classList.remove('bump');
+    // reflow to restart animation
+    void cartBtn.offsetWidth;
+    cartBtn.classList.add('bump');
+  }
+
+  // ---- Toast pequeño que aparece al agregar ----
+  function showAddToast(text){
+    const toast = document.createElement('div');
+    toast.className = 'add-toast';
+    toast.textContent = text;
+    document.body.appendChild(toast);
+
+    // show
+    requestAnimationFrame(() => toast.classList.add('show'));
+
+    // hide después de 1.6s y remover
+    setTimeout(() => {
+      toast.classList.remove('show');
+      toast.classList.add('hide');
+      toast.addEventListener('animationend', () => toast.remove());
+    }, 1600);
+  }
+
+  // ---- Renderizar carrito (agrupa por qty) ----
+  function updateCartUI(){
+    cartBtn.textContent = `Carrito (${cartItems.reduce((s,i)=>s+i.qty,0)})`;
+    const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    cartItemsContainer.innerHTML = '';
+
+    let total = 0;
+    cartItems.forEach((item, index) => {
+      total += item.price * item.qty;
+
+      const div = document.createElement('div');
+      div.classList.add('cart-item');
+
+      div.innerHTML = `
+        <div class="left">
+          <div>
+            <div class="title">${item.title}</div>
+            <div style="font-size:11px;color:#777;">${formatPrice(item.price)} c/u</div>
+          </div>
+        </div>
+
+        <div class="item-controls">
+          <div class="qty-badge" data-index="${index}">${item.qty}</div>
+          <button class="decr-btn" data-index="${index}" title="Quitar 1">-</button>
+          <button class="incr-btn" data-index="${index}" title="Agregar 1">+</button>
+          <button class="remove-btn" data-index="${index}" title="Eliminar">✕</button>
+        </div>
+      `;
+
+      cartItemsContainer.appendChild(div);
+    });
+
+    cartTotal.innerHTML = `<strong>Total: ${formatPrice(total)}</strong>`;
+
+    // Delegación de eventos para botones dentro del contenedor
+    cartItemsContainer.querySelectorAll('.decr-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index);
+        if (cartItems[idx].qty > 1) {
+          cartItems[idx].qty -= 1;
+        } else {
+          // si llega a 0, removemos
+          cartItems.splice(idx,1);
+        }
+        updateCartUI();
+      });
+    });
+
+    cartItemsContainer.querySelectorAll('.incr-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index);
+        cartItems[idx].qty += 1;
+        updateCartUI();
+        animateCartBtn();
+      });
+    });
+
+    cartItemsContainer.querySelectorAll('.remove-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const idx = parseInt(e.target.dataset.index);
+        cartItems.splice(idx,1);
+        updateCartUI();
+      });
+    });
+  }
+
+  // ---- Abrir modal desde tarjeta ----
   function openModalFromCard(card) {
     const title = card.dataset.title;
     const price = card.dataset.price;
@@ -23,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalTitle.textContent = title;
     modalDesc.textContent = desc;
-    modalPrice.textContent = `$${parseFloat(price).toFixed(2)}`;
+    modalPrice.textContent = formatPrice(price);
     modalImg.src = img;
     modalImg.alt = title;
 
@@ -32,13 +153,12 @@ document.addEventListener('DOMContentLoaded', () => {
     modal.focus();
   }
 
-  // Close modal
   function closeModal() {
     modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
   }
 
-  // Delegate view buttons
+  // ---- Events: productos (delegación) ----
   productsGrid.addEventListener('click', (e) => {
     const card = e.target.closest('.product-card');
     if (!card) return;
@@ -46,140 +166,57 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target.matches('.view-btn')) {
       openModalFromCard(card);
     } else if (e.target.matches('.add-cart') || e.target.matches('.btn.outline.add-cart')) {
-      cartCount++;
-      cartBtn.textContent = `Carrito (${cartCount})`;
-      // pequeña animación
-      cartBtn.animate([{ transform: 'scale(1.05)' }, { transform: 'scale(1)' }], { duration: 150 });
+      addToCart(card, 1);
     }
   });
 
+  // Modal close
   modalClose.addEventListener('click', closeModal);
   modalBackdrop.addEventListener('click', closeModal);
-
-  // Escape key
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
   });
 
-
-
-// Array global para guardar items
-let cartItems = [];
-
-// Función para añadir producto al carrito
-function addToCart(card) {
-  const item = {
-    id: card.dataset.id,
-    title: card.dataset.title,
-    price: parseFloat(card.dataset.price)
-  };
-  cartItems.push(item);
-  updateCartUI();
-}
-
-// Actualizar contador y total del carrito
-function updateCartUI() {
-  cartBtn.textContent = `Carrito (${cartItems.length})`;
-  const cartItemsContainer = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
-  cartItemsContainer.innerHTML = '';
-
-  let total = 0;
-  cartItems.forEach(item => {
-    total += item.price;
-    const div = document.createElement('div');
-    div.classList.add('cart-item');
-    div.innerHTML = `<span>${item.title}</span><span>$${item.price.toFixed(2)}</span>`;
-    cartItemsContainer.appendChild(div);
+  // Modal actions (añadir desde modal)
+  document.getElementById('modal-add').addEventListener('click', () => {
+    // encontrar tarjeta por título (asume títulos únicos)
+    const productCard = Array.from(document.querySelectorAll('.product-card'))
+      .find(c => c.dataset.title === modalTitle.textContent);
+    if (productCard) addToCart(productCard, 1);
+    closeModal();
   });
 
-  cartTotal.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
-}
+  document.getElementById('modal-buy').addEventListener('click', () => {
+    alert('Simulación de compra: ir a checkout (a implementar).');
+    closeModal();
+  });
 
-// Evento click en botón de carrito
-cartBtn.addEventListener('click', () => {
+  // ---- Carrito: abrir / cerrar modal ----
   const cartModal = document.getElementById('cart-modal');
-  cartModal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-});
-
-// Cerrar modal carrito
-const cartModal = document.getElementById('cart-modal');
-const cartClose = document.getElementById('cart-close');
-cartClose.addEventListener('click', () => {
-  cartModal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-});
-cartModal.querySelector('.modal-backdrop').addEventListener('click', () => {
-  cartModal.setAttribute('aria-hidden', 'true');
-  document.body.style.overflow = '';
-});
-
-// Cambiar función de añadir al carrito existente
-productsGrid.addEventListener('click', (e) => {
-  const card = e.target.closest('.product-card');
-  if (!card) return;
-
-  if (e.target.matches('.view-btn')) {
-    openModalFromCard(card);
-  } else if (e.target.matches('.add-cart') || e.target.matches('.btn.outline.add-cart')) {
-    addToCart(card); // ahora usamos la nueva función
-  }
-});
-
-// Modal: comprar desde modal también agrega al carrito
-document.getElementById('modal-add').addEventListener('click', () => {
-  const productCard = Array.from(document.querySelectorAll('.product-card'))
-    .find(c => c.dataset.title === modalTitle.textContent);
-  if (productCard) addToCart(productCard);
-  closeModal();
-});
-
-// Nueva función para renderizar carrito con botón eliminar
-function updateCartUI() {
-  cartBtn.textContent = `Carrito (${cartItems.length})`;
-  const cartItemsContainer = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
-  cartItemsContainer.innerHTML = '';
-
-  let total = 0;
-  cartItems.forEach((item, index) => {
-    total += item.price;
-
-    const div = document.createElement('div');
-    div.classList.add('cart-item');
-    div.innerHTML = `
-      <span>${item.title}</span>
-      <span>
-        $${item.price.toFixed(2)}
-        <button class="remove-btn" data-index="${index}">✕</button>
-      </span>
-    `;
-    cartItemsContainer.appendChild(div);
+  const cartClose = document.getElementById('cart-close');
+  cartBtn.addEventListener('click', () => {
+    cartModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    // renderizar para asegurar que esté actualizado al abrir
+    updateCartUI();
+  });
+  cartClose.addEventListener('click', () => {
+    cartModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  });
+  cartModal.querySelector('.modal-backdrop').addEventListener('click', () => {
+    cartModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   });
 
-  cartTotal.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
-
-  // Agregar funcionalidad a botones eliminar
-  cartItemsContainer.querySelectorAll('.remove-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const idx = parseInt(e.target.dataset.index);
-      cartItems.splice(idx, 1);
-      updateCartUI();
-    });
+  // Checkout
+  const checkoutBtn = document.getElementById('checkout-btn');
+  checkoutBtn.addEventListener('click', () => {
+    // podrías serializar carrito a localStorage o pasar por query string; por ahora redirigimos
+    window.location.href = "checkout.html";
   });
-}
 
-// Checkout
-const checkoutBtn = document.getElementById('checkout-btn');
-checkoutBtn.addEventListener('click', () => {
-  window.location.href = "checkout.html"; // redirige a otra página (a implementar)
-});
-
-
-
-
-  // Search filter (simple)
+  // Search filter
   searchInput.addEventListener('input', (e) => {
     const q = e.target.value.trim().toLowerCase();
     document.querySelectorAll('.product-card').forEach(card => {
@@ -189,7 +226,7 @@ checkoutBtn.addEventListener('click', () => {
     });
   });
 
-  // Sort (client-side by data-price)
+  // Sort
   sortSelect.addEventListener('change', (e) => {
     const val = e.target.value;
     const cards = Array.from(document.querySelectorAll('.product-card'));
@@ -200,26 +237,21 @@ checkoutBtn.addEventListener('click', () => {
     } else if (val === 'price-desc') {
       sorted = cards.sort((a,b) => parseFloat(b.dataset.price) - parseFloat(a.dataset.price));
     } else {
-      // featured: keep original order — do nothing
       sorted = cards.sort((a,b) => parseInt(a.dataset.id) - parseInt(b.dataset.id));
     }
-
-    // Re-append in new order
     sorted.forEach(c => productsGrid.appendChild(c));
   });
 
-  // Accessibility: trap focus inside modal when open (simple approach)
+  // Accessibility: trap focus inside modal (product modal)
   modal.addEventListener('keydown', (e) => {
     if (e.key !== 'Tab') return;
     const focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
     if (focusable.length === 0) return;
     const first = focusable[0], last = focusable[focusable.length -1];
     if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault();
-      last.focus();
+      e.preventDefault(); last.focus();
     } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault();
-      first.focus();
+      e.preventDefault(); first.focus();
     }
   });
 
