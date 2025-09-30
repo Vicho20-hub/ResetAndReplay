@@ -30,6 +30,14 @@
                    <input type="text" id="nombre_usu">
                    <p class="mensajeError"></p>
                </div>
+
+               <div class="form-input fec_nac">
+                   <label for="fec_nac">Fecha de nacimiento</label>
+                   <input type="date" id="fec_nac">
+                   <p class="mensajeError"></p>
+               </div>
+
+               
                <div class="form-input password">
                    <label for="nombre_usu">Contraseña</label>
                    <input type="password" id="password">
@@ -53,12 +61,12 @@
                </div>
             </div>
 
-            <!-- Bloque de acciones: coloca esto dentro de tu <form> (antes del input submit actual) -->
+            <!-- Bloque de acciones -->
             <div class="form-actions d-flex" style="gap:10px; align-items:center; justify-content:space-between; margin-top:10px;">
-                <!-- Botón Volver: enlace con clase de botón (navega a index.html) -->
+                <!-- Botón Volver -->
                 <a href="login.html" class="btn btn-primary volver-btn" role="button">Volver</a>
             
-                <!-- Botón Enviar existente (ejemplo) -->
+                <!-- Botón Enviar -->
                 <input type="submit" class="btn btn-primary" value="Enviar" onclick="validar()" >
             </div>
         </form>

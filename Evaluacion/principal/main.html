@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="es">
+  <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>RetroStore • Artículos Retro y Videojuegos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RetroStore • Artículos Retro y Videojuegos</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="mainStyles.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="mainStyles.css" />
 
-  <!-- Meta -->
-  <meta name="description" content="Tienda retro de videojuegos y coleccionables — inspiración SNES, juegos y consolas clásicas.">
+    <!-- Meta -->
+    <meta name="description" content="Tienda retro de videojuegos y coleccionables — inspiración SNES, juegos y consolas clásicas.">
 </head>
 <body>
   <header class="site-header">
@@ -24,7 +24,7 @@
         <img src="img/logo2.png" alt="RetroStore logo" class="logo" />
         <h1>R&R</h1>
       </div>
-
+      <!-- Navbar-->
       <nav class="main-nav" aria-label="Navegación principal">
         <a href="#" class="active">Inicio</a>
         <a href="producto.html">Productos</a>
@@ -40,7 +40,7 @@
   </header>
 
   <main>
-    <!-- HERO -->
+    <!-- SECCION de historia / imagen -->
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
@@ -54,7 +54,7 @@
       </div>
     </section>
 
-    <!-- FEATURES / CATEGORIES -->
+    <!-- CATEGORIAS -->
     <section id="categorias" class="categories container">
       <h3 class="section-title">Categorías destacadas</h3>
       <div class="cats-grid">
@@ -81,7 +81,7 @@
       </div>
     </section>
 
-    <!-- PRODUCTS -->
+    <!-- PRODUCTOS -->
     <section id="productos" class="products container">
       <h3 class="section-title">Productos destacados</h3>
 
@@ -146,7 +146,7 @@
       </div>
     </section>
 
-    <!-- CONTACT / FOOTER -->
+    <!-- CONTACTO / FOOTER -->
     <section id="contacto" class="contact container">
       <h3 class="section-title">Contacto</h3>
       <p>¿Tienes una pieza para vender o una consulta? Escríbenos a <a href="mailto:info@resetandreplay.com">info@resetandreplay.com</a></p>
@@ -163,7 +163,7 @@
     </div>
   </footer>
 
-  <!-- PRODUCT MODAL -->
+  <!-- MODAL PRODUCTO -->
   <div id="product-modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-content" role="document">
       <button id="modal-close" class="modal-close" aria-label="Cerrar">✕</button>
@@ -186,19 +186,19 @@
   </div>
 
 
-<!-- CART MODAL -->
-<div id="cart-modal" class="modal" aria-hidden="true" role="dialog">
-  <div class="modal-content" role="document">
-    <button id="cart-close" class="modal-close" aria-label="Cerrar">✕</button>
-    <h4>Carrito de compras</h4>
-    <div id="cart-items" class="cart-items">
-      <!-- Items agregados aparecerán aquí -->
+  <!-- MODAL CARRITO -->
+  <div id="cart-modal" class="modal" aria-hidden="true" role="dialog">
+    <div class="modal-content" role="document">
+      <button id="cart-close" class="modal-close" aria-label="Cerrar">✕</button>
+      <h4>Carrito de compras</h4>
+      <div id="cart-items" class="cart-items">
+        <!-- Los items que se agregan aparecerán aquí -->
+      </div>
+      <p id="cart-total"><strong>Total: $0.00</strong></p>
+      <button id="checkout-btn" class="btn large">Proceder al pago</button>
     </div>
-    <p id="cart-total"><strong>Total: $0.00</strong></p>
-    <button id="checkout-btn" class="btn large">Proceder al pago</button>
+    <div class="modal-backdrop" tabindex="-1" data-close></div>
   </div>
-  <div class="modal-backdrop" tabindex="-1" data-close></div>
-</div>
 
 
 

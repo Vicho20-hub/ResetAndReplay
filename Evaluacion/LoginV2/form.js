@@ -46,7 +46,7 @@ function validar(){
         let todoOk = true; // Variable que nos dirá si todo está correcto
    
        /* if que valida el rango de caracteres en el campo nombre */
-    if(nombre.value.length < 2 || nombre.value.length > 50 || nombre.value.trim() == "" ){
+    if(nombre.value.length < 3 || nombre.value.length > 20 || nombre.value.trim() == "" ){
        
         mostrarMensajeError("nombre","Nombre debe contener 3 a 20 caracteres");
         todoOk = false;
@@ -68,7 +68,28 @@ function validar(){
        
         mostrarMensajeError("nombre_usu","Usario debe contener 4 a 20 caracteres");
         todoOk = false;
-    }   
+    }  
+    
+    document.getElementById('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const birthdate = document.getElementById('fec_nac').value;
+    if (!birthdate) {
+        mostrarMensajeError("fec_nac","Por favor, ingrese una fecha de nacimiento válida.");
+        todoOk = false;
+    }
+    const today = new Date();
+    const birth = new Date(birthdate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const m = today.getMonth() - birth.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    if (age < 18) {
+        mostrarMensajeError("fec_nac","Debes ser mayor de 18 años para registrarte.");
+        todoOk = false;
+    }
+    });
+
 
     if(password.value.length < 8) {
         mostrarMensajeError("password","La contraseña debe contener al menos 8 caracteres");
@@ -96,7 +117,7 @@ function validar(){
 
     // Si todo está ok
     if(todoOk){
-        alert("¡Todos los campos están correctos!");
+        alert("¡Se ha registrado correctamente!");
         form.reset(); // Limpia todos los campos del formulario
     }
 
